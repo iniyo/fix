@@ -86,7 +86,6 @@ namespace testdbwinform
                     {
                         reader.Close(); // 셋팅 끝났으면 종료
                         MessageBox.Show(ex.Message);
-                        MessageBox.Show("해당하는 이름이 데이터베이스 내에 존재하지 않습니다.");
                         count = 0;
                     }
                 }
