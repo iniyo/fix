@@ -393,7 +393,7 @@ namespace testdbwinform
         // 폼 통신용
         public void setGridView(string staffcode, string caseNo)
         {
-            bool t = true;
+            bool t = false; // datagridview에 아무것도 없는 경우
             for (int i = 0; i < dataGridView1.RowCount; i++) //Row개수 만큼 동작
             {
                 if (dataGridView1.Rows[i].Cells[1].Value.ToString() == staffcode)
