@@ -168,6 +168,7 @@ namespace testdbwinform
                 // 무사고 여부
                 if ("1" == mainreader["accident_free"].ToString()) {
                     s[4] = "사고";
+                    continue;
                 } else {
                     s[4] = "무사고";
                 }
