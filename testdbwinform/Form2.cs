@@ -102,7 +102,6 @@ namespace testdbwinform
             }
             catch
             {
-                reader.Close(); // 셋팅 끝났으면 종료
                 MessageBox.Show("텍스트 박스가 비어있습니다.");
             }
         }
