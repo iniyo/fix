@@ -67,36 +67,44 @@ namespace testdbwinform
         //사원 이름 입력 시 이벤트
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
+
             // 무사고, 배달건수를 제외한 데이터는 모두 ReadOnly == 값 변경 불가.
             // 엔터키 이벤트
-            if (e.KeyCode == Keys.Enter && String.IsNullOrWhiteSpace(textBox1.Text))
-            {
-                dataGridView1.Rows.Remove(dataGridView1.Rows[0]); // 해당되는 row 삭제
-                count = 0; // 텍스트 박스 공백 시 count = 0
-            }
-            else if (e.KeyCode == Keys.Enter && textBox1.Text.Length >= 3 && count == 0) // 텍스트 박스 길이가 3이 넘고 엔터를 쳐야지 실행됨.
-            {
-                try
+            try {
+                if (e.KeyCode == Keys.Enter && String.IsNullOrWhiteSpace(textBox1.Text))
                 {
-                    set_data(); //기본 데이터 셋팅
+                    dataGridView1.Rows.Remove(dataGridView1.Rows[0]); // 해당되는 row 삭제
+                    count = 0; // 텍스트 박스 공백 시 count = 0
                 }
-                catch (Exception ex)
+                else if (e.KeyCode == Keys.Enter && textBox1.Text.Length >= 3 && count == 0) // 텍스트 박스 길이가 3이 넘고 엔터를 쳐야지 실행됨.
                 {
-                    reader.Close(); // 셋팅 끝났으면 종료
-                    MessageBox.Show(ex.Message);
-                    //MessageBox.Show("해당하는 이름이 데이터베이스 내에 존재하지 않습니다.");
+                    try
+                    {
+                        set_data(); //기본 데이터 셋팅
+                    }
+                    catch (Exception ex)
+                    {
+                        reader.Close(); // 셋팅 끝났으면 종료
+                        MessageBox.Show(ex.Message);
+                        MessageBox.Show("해당하는 이름이 데이터베이스 내에 존재하지 않습니다.");
+                        count = 0;
+                    }
+                }
+                else if (e.KeyCode == Keys.Enter && count == 1)
+                {
+                    MessageBox.Show("텍스트 박스를 공백으로 해주세요");
+                    count = 0;
+                }
+                else if (e.KeyCode == Keys.Enter)
+                {
+                    MessageBox.Show("텍스트 박스를 확인해주세요");
                     count = 0;
                 }
             }
-            else if (e.KeyCode == Keys.Enter && count == 1)
+            catch(Exception ex)
             {
-                MessageBox.Show("텍스트 박스를 공백으로 해주세요");
-                count = 0;
-            }
-            else if (e.KeyCode == Keys.Enter)
-            {
-                MessageBox.Show("텍스트 박스를 확인해주세요");
-                count = 0;
+                reader.Close(); // 셋팅 끝났으면 종료
+                MessageBox.Show(ex.Message);
             }
         }
         //추가버튼 클릭 시 db에 data 전송
@@ -234,7 +242,8 @@ namespace testdbwinform
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                reader.Close(); // 셋팅 끝났으면 종료
+                MessageBox.Show("사원이 존재하지 않습니다.");
             }
         }
         private void CalcComm()
