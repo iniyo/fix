@@ -11,6 +11,7 @@ using MySql.Data.MySqlClient; // MySql 사용 시
 using System.Collections; //ArrayLIst 클래스 사용 시 
 using Google.Protobuf.WellKnownTypes;
 using System.Runtime.InteropServices;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace testdbwinform
 {
@@ -214,6 +215,7 @@ namespace testdbwinform
             chart1.Series["Series1"].Points.Clear();
             // 무사고 여부 클릭시 사고 여부 보임.
             if ("사고여부" == comboBox4.SelectedItem.ToString()) {
+                chart1.ChartAreas[0].AxisY.Interval = 1D;
                 mainquery(dateTimePicker1.Value.ToString("yyyy-MM-dd"));
                 while (mainreader.Read()) 
                 {
@@ -224,6 +226,7 @@ namespace testdbwinform
             
             else if ("배달건수" == comboBox4.SelectedItem.ToString())
             {
+                chart1.ChartAreas[0].AxisY.Interval = 30D;
                 mainquery(dateTimePicker1.Value.ToString("yyyy-MM-dd"));
                 while (mainreader.Read()) 
                 {
@@ -234,6 +237,7 @@ namespace testdbwinform
            
             else if ("출/퇴근" == comboBox4.SelectedItem.ToString())
             {
+                chart1.ChartAreas[0].AxisY.Interval = 1D;
                 mainquery(dateTimePicker1.Value.ToString("yyyy-MM-dd"));
                 while (mainreader.Read()) 
                 {
@@ -244,6 +248,7 @@ namespace testdbwinform
             
             else if ("총수익" == comboBox4.SelectedItem.ToString())
             {
+                chart1.ChartAreas[0].AxisY.Interval = 16000D;
                 mainquery(dateTimePicker1.Value.ToString("yyyy-MM-dd"));
                 while (mainreader.Read())
                 {

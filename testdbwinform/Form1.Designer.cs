@@ -323,6 +323,7 @@ namespace testdbwinform
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+            series1.IsValueShownAsLabel = true;
             series1.Name = "Series1";
             series1.YValuesPerPoint = 2;
             this.chart1.Series.Add(series1);
