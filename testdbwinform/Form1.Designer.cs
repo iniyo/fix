@@ -36,7 +36,6 @@ namespace testdbwinform
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.casecode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.table2_staffcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,14 +46,6 @@ namespace testdbwinform
             this.commute = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.revenue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.staffcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.addr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.accdent2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.casenumber2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.commute2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.revenue2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
@@ -110,16 +101,6 @@ namespace testdbwinform
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(616, 10);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 18);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "연결확인용";
-            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
@@ -145,7 +126,6 @@ namespace testdbwinform
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.Size = new System.Drawing.Size(804, 256);
             this.dataGridView1.TabIndex = 13;
-            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
             // 
             // casecode
@@ -225,70 +205,6 @@ namespace testdbwinform
             this.dataGridView2.RowTemplate.Height = 23;
             this.dataGridView2.Size = new System.Drawing.Size(804, 93);
             this.dataGridView2.TabIndex = 14;
-            // 
-            // staffcode
-            // 
-            this.staffcode.HeaderText = "staffcode";
-            this.staffcode.MinimumWidth = 8;
-            this.staffcode.Name = "staffcode";
-            this.staffcode.ReadOnly = true;
-            this.staffcode.Width = 150;
-            // 
-            // name2
-            // 
-            this.name2.HeaderText = "사원명";
-            this.name2.MinimumWidth = 8;
-            this.name2.Name = "name2";
-            this.name2.ReadOnly = true;
-            this.name2.Width = 150;
-            // 
-            // tel
-            // 
-            this.tel.HeaderText = "전화번호";
-            this.tel.MinimumWidth = 8;
-            this.tel.Name = "tel";
-            this.tel.ReadOnly = true;
-            this.tel.Width = 150;
-            // 
-            // addr
-            // 
-            this.addr.HeaderText = "주소";
-            this.addr.MinimumWidth = 8;
-            this.addr.Name = "addr";
-            this.addr.ReadOnly = true;
-            this.addr.Width = 150;
-            // 
-            // accdent2
-            // 
-            this.accdent2.HeaderText = "무사고 여부";
-            this.accdent2.MinimumWidth = 8;
-            this.accdent2.Name = "accdent2";
-            this.accdent2.ReadOnly = true;
-            this.accdent2.Width = 150;
-            // 
-            // casenumber2
-            // 
-            this.casenumber2.HeaderText = "배달건수";
-            this.casenumber2.MinimumWidth = 8;
-            this.casenumber2.Name = "casenumber2";
-            this.casenumber2.ReadOnly = true;
-            this.casenumber2.Width = 150;
-            // 
-            // commute2
-            // 
-            this.commute2.HeaderText = "출/퇴근";
-            this.commute2.MinimumWidth = 8;
-            this.commute2.Name = "commute2";
-            this.commute2.ReadOnly = true;
-            this.commute2.Width = 150;
-            // 
-            // revenue2
-            // 
-            this.revenue2.HeaderText = "총수익";
-            this.revenue2.MinimumWidth = 8;
-            this.revenue2.Name = "revenue2";
-            this.revenue2.ReadOnly = true;
-            this.revenue2.Width = 150;
             // 
             // textBox1
             // 
@@ -391,7 +307,6 @@ namespace testdbwinform
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(343, 28);
             this.dateTimePicker1.TabIndex = 21;
-            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // comboBox1
             // 
@@ -431,7 +346,6 @@ namespace testdbwinform
             this.ClientSize = new System.Drawing.Size(1263, 722);
 
             this.Controls.Add(this.button3);
-
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.comboBox5);
@@ -442,11 +356,9 @@ namespace testdbwinform
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -463,7 +375,6 @@ namespace testdbwinform
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.TextBox textBox1;
@@ -491,7 +402,6 @@ namespace testdbwinform
         private System.Windows.Forms.DataGridViewTextBoxColumn casenumber2;
         private System.Windows.Forms.DataGridViewTextBoxColumn commute2;
         private System.Windows.Forms.DataGridViewTextBoxColumn revenue2;
-        private System.Windows.Forms.Button button3;
     }
 }
 
