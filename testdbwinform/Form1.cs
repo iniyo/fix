@@ -52,6 +52,7 @@ namespace testdbwinform
             cmd = new MySqlCommand("", conn); // 쿼리문은 넣지 않고 일단 실행 -> 필요한 이벤트 처리기에서 쿼리문 설정.
             Main_ListView_items_Reader(DateTime.Now.ToString("yyyy-MM-dd")); //화면 메인 리스트 뷰에 데이터 받아오기
             comboBox1.SelectedIndex = 0;
+            comboBox4.SelectedIndex = 0;
         }
         //
         //폼 동작
@@ -111,6 +112,7 @@ namespace testdbwinform
                         DeleteDB(delcode); // 삭제 진행
                         Main_ListView_items_Reader(dateTimePicker1.Value.ToString("yyyy-MM-dd")); // 삭제 후 테이블 띄우기
                         dataGridView2.Rows.Clear();
+                        update_chart();
                     }
                 }
             }
@@ -208,54 +210,56 @@ namespace testdbwinform
                 }
             }
         }
-        // chart 콤보박스1 변경 시 이벤트 (
-        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
+        public void update_chart() {
+            int commute = 0;
+            // 시간초과 여부
             chart1.Series["Series1"].Points.Clear();
             // 무사고 여부 클릭시 사고 여부 보임.
+
             if ("사고여부" == comboBox4.SelectedItem.ToString()) {
+                chart1.Series[0].Color = Color.Red;
                 chart1.ChartAreas[0].AxisY.Interval = 1D;
                 mainquery(dateTimePicker1.Value.ToString("yyyy-MM-dd"));
-                while (mainreader.Read()) 
-                {
+                while (mainreader.Read()) {
                     chart1.Series[0].Points.AddXY(mainreader["table2_staffcode"].ToString(), mainreader["accident_free"]);
                 }
                 mainreader.Close(); // 항상 사용 후 종료
-            } 
-            
-            else if ("배달건수" == comboBox4.SelectedItem.ToString())
-            {
-                chart1.ChartAreas[0].AxisY.Interval = 30D;
+            } else if ("배달건수" == comboBox4.SelectedItem.ToString()) {
+                chart1.Series[0].Color = Color.LimeGreen;
+                chart1.ChartAreas[0].AxisY.Interval = 0D;
                 mainquery(dateTimePicker1.Value.ToString("yyyy-MM-dd"));
-                while (mainreader.Read()) 
-                {
+                while (mainreader.Read()) {
                     chart1.Series[0].Points.AddXY(mainreader["table2_staffcode"].ToString(), mainreader["case_number"]);
                 }
                 mainreader.Close(); // 항상 사용 후 종료
-            }
-           
-            else if ("출/퇴근" == comboBox4.SelectedItem.ToString())
-            {
+            } else if ("시간초과" == comboBox4.SelectedItem.ToString()) {
+                chart1.Series[0].Color = Color.Red;
                 chart1.ChartAreas[0].AxisY.Interval = 1D;
                 mainquery(dateTimePicker1.Value.ToString("yyyy-MM-dd"));
-                while (mainreader.Read()) 
-                {
-                    chart1.Series[0].Points.AddXY(mainreader["table2_staffcode"].ToString(), mainreader["commute"]); 
+                while (mainreader.Read()) {
+                    if (int.Parse(mainreader["commute"].ToString()) == 0) {
+                        commute = 1;
+                    } else {
+                        commute = 0;
+                    }
+                    chart1.Series[0].Points.AddXY(mainreader["table2_staffcode"].ToString(), commute);
                 }
                 mainreader.Close(); // 항상 사용 후 종료
-            }
-            
-            else if ("총수익" == comboBox4.SelectedItem.ToString())
-            {
-                chart1.ChartAreas[0].AxisY.Interval = 16000D;
+            } else if ("총수익" == comboBox4.SelectedItem.ToString()) {
+                chart1.Series[0].Color = Color.LimeGreen;
+                chart1.ChartAreas[0].AxisY.Interval = 0D;
                 mainquery(dateTimePicker1.Value.ToString("yyyy-MM-dd"));
-                while (mainreader.Read())
-                {
-                    chart1.Series[0].Points.AddXY(mainreader["table2_staffcode"].ToString(), mainreader["revenue"]); 
+                while (mainreader.Read()) {
+                    chart1.Series[0].Points.AddXY(mainreader["table2_staffcode"].ToString(), mainreader["revenue"]);
                 }
                 mainreader.Close(); // 항상 사용 후 종료
             }
+        }
+        // chart 콤보박스1 변경 시 이벤트 (
+        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            update_chart();
         }
         //
         //커스텀 함수
@@ -402,6 +406,7 @@ namespace testdbwinform
             {
                 MessageBox.Show("전송완료");
                 Main_ListView_items_Reader(dateTimePicker1.Value.ToString("yyyy-MM-dd")); // 테이블 띄우기
+                update_chart();
             }
 
         }
@@ -566,6 +571,7 @@ namespace testdbwinform
             //MessageBox.Show(SelectDate.ToString());
             textBox1.Text = "";
             Main_ListView_items_Reader(dateSet);
+            update_chart();
         }
 
         // 사원 삭제
@@ -594,6 +600,7 @@ namespace testdbwinform
                     {
                         DeleteSubDB(staffcode);
                         MessageBox.Show("삭제되었습니다", "삭제 성공");
+                        update_chart();
                     }
                 }
                 catch
