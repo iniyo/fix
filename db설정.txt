@@ -1,0 +1,47 @@
+// 유저 생성
+create user 'test'@'localhost' identified by '1234';
+grant all privileges on test.* to 'test'@'localhost';
+
+flush privileges;
+
+// db 생성
+create database mydb;
+use mydb;
+
+// 테이블 생성
+// 서브 생성 후 메인 생성
+/* staffcode(사원코드), name(이름), tel(전화번호), addr(주소) */
+create table sub_table_test(
+staffcode int primary key,
+name char(45),
+tel char(45),
+addr char(45)
+);
+
+// 메인
+/* table2_staffcode(사원코드), accident_free(사고여부), case_number(배달건수), date(날짜), revenue(수익), commute(출퇴근)*/ 
+create table main_table_test(
+casecode char(16) primary key,
+table2_staffcode int,
+accident_free tinyint,
+case_number char(45),
+date DATE,
+revenue char(45),
+commute tinyint,
+foreign key(table2_staffcode) references sub_table_test (staffcode)
+);
+
+// 이미 테이블이 존재하는 경우 외래키 설정
+alter table add foreign key(table2_staffcode) references sub_table_test(staffcode);
+
+// 데이터 추가
+insert into sub_table_test values(20212503, '최주영', '010-1111-1111', '부산'),
+(20212504, '고래상어', '010-2222-2222', '서울');
+insert into main_table_test values(1, 20212503, 0, "30번", "2022-12-08", 1200, 1),
+(2, 20212504, 0, '20번', '2022-12-08', 1000, 1);
+
+
+// 테이블 삭제(원할 경우)
+drop table 테이블명;
+
+
