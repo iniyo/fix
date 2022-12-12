@@ -30,8 +30,6 @@ namespace testdbwinform
         //static string password = "1234";
 
         static string connectionaddress = $"Server={server};Port={port};Database={databaes};Uid={user};Pwd={password}";
-        // datagridview 행 생성을 위한 table 객체
-        DataTable table = new DataTable();
         // mysql db 연결 시 필요한 것들
         MySqlConnection conn; // MySql db연동을 위해 필요
         MySqlCommand cmd; // 쿼리문 설정, 실행
@@ -608,7 +606,6 @@ namespace testdbwinform
                         DeleteSubDB(staffcode);
                         MessageBox.Show("삭제되었습니다", "삭제 성공");
                     }
-
                 }
                 catch
                 {
@@ -653,6 +650,5 @@ namespace testdbwinform
             value = textBox.Text;
             return dialogResult;
         }
-
     }
 }
