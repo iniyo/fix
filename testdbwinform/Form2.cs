@@ -84,7 +84,6 @@ namespace testdbwinform
                     }
                     catch (Exception ex)
                     {
-                        mreader.Close();
                         reader.Close(); // 셋팅 끝났으면 종료
                         MessageBox.Show(ex.Message);
                         count = 0;
@@ -101,11 +100,10 @@ namespace testdbwinform
                     count = 0;
                 }
             }
-            catch(Exception ex)
+            catch
             {
-
                 reader.Close(); // 셋팅 끝났으면 종료
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("텍스트 박스가 비어있습니다.");
             }
         }
         //추가버튼 클릭 시 db에 data 전송
@@ -229,17 +227,6 @@ namespace testdbwinform
                 dataGridView1.Rows.Add(reader["staffcode"], reader["name"]); //사원명이 있으면 사원명과 staff_code를 세팅 (사원명이 중복될 경우 데이터 처리도 해야됨)
                 string staff_code = reader["staffcode"].ToString();
                 reader.Close(); // 셋팅 끝났으면 종료
-                
-                string selectQuery2 = "SELECT * FROM main_table_test where table2_staffcode = " + '"' + staff_code + '"'; // 사원이 가지고 있는 staff_code를 가지고 옴
-                cmd.CommandText = selectQuery2; // cmd에 쿼리 설정
-                mreader = cmd.ExecuteReader();
-                mreader.Read();
-                if (reader["accident_free"].ToString().Equals("1"))// 사고 전적이 있는 경우 
-                {
-                    dataGridView1.Rows[0].Cells[3].Value = "사고경력 있음.";
-                    dataGridView1.Rows[0].Cells[3].ReadOnly = true; // 사고 경력이 있는 경우 수정하지 못함.
-                }
-                mreader.Close(); // 셋팅 끝났으면 종료
                 //db에 넣을 데이터
                 Random randomObj = new Random();
                 casecode = "caseNo" + randomObj.Next().ToString(); //next 시 10개의 int가 생성됨. casecode의 크기를 16으로 해놨음. 그래서 영문자 6개 더함.
@@ -252,11 +239,10 @@ namespace testdbwinform
                 MessageBox.Show("사원이 인증되었습니다.");
                 count = 1;
             }
-            catch (Exception ex)
+            catch
             {
                 reader.Close(); // 셋팅 끝났으면 종료
-                mreader.Close();
-                //MessageBox.Show(ex.Message);
+                MessageBox.Show("이름을 확인해주세요");
             }
         }
         private void CalcComm()
