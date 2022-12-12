@@ -47,20 +47,18 @@ namespace testdbwinform
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("한컴 말랑말랑 Regular", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(43, 44);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(30, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(299, 41);
+            this.label1.Size = new System.Drawing.Size(198, 27);
             this.label1.TabIndex = 0;
             this.label1.Text = "사원명을 입력하세요 : ";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(353, 52);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Location = new System.Drawing.Point(247, 35);
             this.textBox1.MaxLength = 5;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(153, 28);
+            this.textBox1.Size = new System.Drawing.Size(108, 21);
             this.textBox1.TabIndex = 1;
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
@@ -77,13 +75,12 @@ namespace testdbwinform
             this.date,
             this.case_number,
             this.revenue});
-            this.dataGridView1.Location = new System.Drawing.Point(44, 112);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView1.Location = new System.Drawing.Point(31, 75);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(791, 132);
+            this.dataGridView1.Size = new System.Drawing.Size(554, 88);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
             this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
@@ -148,10 +145,9 @@ namespace testdbwinform
             // 
             this.button1.BackColor = System.Drawing.Color.DarkTurquoise;
             this.button1.Font = new System.Drawing.Font("한컴 말랑말랑 Bold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button1.Location = new System.Drawing.Point(880, 198);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Location = new System.Drawing.Point(616, 132);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(117, 46);
+            this.button1.Size = new System.Drawing.Size(82, 31);
             this.button1.TabIndex = 3;
             this.button1.Text = "추가";
             this.button1.UseVisualStyleBackColor = false;
@@ -159,18 +155,17 @@ namespace testdbwinform
             // 
             // Form2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BackgroundImage = global::testdbwinform.Properties.Resources.background;
-            this.ClientSize = new System.Drawing.Size(1077, 286);
+            this.ClientSize = new System.Drawing.Size(754, 191);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form2";
-            this.Text = "Form2";
+            this.Text = "실적추가 화면";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form2_FormClosed);
             this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
