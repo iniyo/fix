@@ -134,9 +134,9 @@ namespace testdbwinform
                     Close();
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("배달건수가 입력되지 않았습니다.");
             }
 
         }
