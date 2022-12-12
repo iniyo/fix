@@ -74,7 +74,7 @@ namespace testdbwinform
                 {
                     if (String.IsNullOrEmpty(textBox1.Text))
                     {
-                        MessageBox.Show("값을 입력해주십시요", "검색 실패");
+                        MessageBox.Show("값을 입력해주세요", "검색 실패!");
                     }
                     else
                     {
