@@ -62,7 +62,6 @@ namespace testdbwinform
             conn.Close(); //MySql db 연결 종료.
         }
         // 항목 내의 셀 두번 클릭 시
-
         //
         // 이벤트 처리기
         //
