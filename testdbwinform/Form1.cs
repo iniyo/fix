@@ -10,6 +10,7 @@ using System.Windows.Forms; // 윈폼
 using MySql.Data.MySqlClient; // MySql 사용 시
 using System.Collections; //ArrayLIst 클래스 사용 시 
 using Google.Protobuf.WellKnownTypes;
+using System.Runtime.InteropServices;
 
 namespace testdbwinform
 {
@@ -29,8 +30,6 @@ namespace testdbwinform
         static string password = "1234";
 
         static string connectionaddress = $"Server={server};Port={port};Database={databaes};Uid={user};Pwd={password}";
-        // datagridview 행 생성을 위한 table 객체
-        DataTable table = new DataTable();
         // mysql db 연결 시 필요한 것들
         MySqlConnection conn; // MySql db연동을 위해 필요
         MySqlCommand cmd; // 쿼리문 설정, 실행
@@ -416,7 +415,9 @@ namespace testdbwinform
 
             while (mainreader.Read())
             {
-                dataGridView1.Rows.Add(mainreader["casecode"], mainreader["table2_staffcode"], "", mainreader["accident_free"], mainreader["case_number"], mainreader["date"], mainreader["commute"], mainreader["revenue"]);
+                string[] date = new string[dataGridView1.RowCount];
+                date = mainreader["date"].ToString().Split(' ');
+                dataGridView1.Rows.Add(mainreader["casecode"], mainreader["table2_staffcode"], "", mainreader["accident_free"], mainreader["case_number"], date[0], mainreader["commute"], mainreader["revenue"]);
             }
             mainreader.Close();
             for (int i = 0; i < dataGridView1.RowCount; i++) //Row개수 만큼 동작
@@ -517,7 +518,6 @@ namespace testdbwinform
                 selectdata = "revenue";
                 SearchData(selectdata, data);
             }
-
         }
 
         //UPDATE처리
@@ -590,7 +590,6 @@ namespace testdbwinform
                         DeleteSubDB(staffcode);
                         MessageBox.Show("삭제되었습니다", "삭제 성공");
                     }
-
                 }
                 catch
                 {

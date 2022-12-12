@@ -44,7 +44,7 @@ namespace testdbwinform
         // 쿼리문 설정, 실행
         MySqlCommand cmd;
         // 서버에서 데이터 가져올때 필요
-        MySqlDataReader reader;
+        MySqlDataReader reader, mreader;
         //
         // 폼
         //
@@ -67,36 +67,42 @@ namespace testdbwinform
         //사원 이름 입력 시 이벤트
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
+
             // 무사고, 배달건수를 제외한 데이터는 모두 ReadOnly == 값 변경 불가.
             // 엔터키 이벤트
-            if (e.KeyCode == Keys.Enter && String.IsNullOrWhiteSpace(textBox1.Text))
-            {
-                dataGridView1.Rows.Remove(dataGridView1.Rows[0]); // 해당되는 row 삭제
-                count = 0; // 텍스트 박스 공백 시 count = 0
-            }
-            else if (e.KeyCode == Keys.Enter && textBox1.Text.Length >= 3 && count == 0) // 텍스트 박스 길이가 3이 넘고 엔터를 쳐야지 실행됨.
-            {
-                try
+            try {
+                if (e.KeyCode == Keys.Enter && String.IsNullOrWhiteSpace(textBox1.Text))
                 {
-                    set_data(); //기본 데이터 셋팅
+                    dataGridView1.Rows.Remove(dataGridView1.Rows[0]); // 해당되는 row 삭제
+                    count = 0; // 텍스트 박스 공백 시 count = 0
                 }
-                catch (Exception ex)
+                else if (e.KeyCode == Keys.Enter && textBox1.Text.Length >= 3 && count == 0) // 텍스트 박스 길이가 3이 넘고 엔터를 쳐야지 실행됨.
                 {
-                    reader.Close(); // 셋팅 끝났으면 종료
-                    MessageBox.Show(ex.Message);
-                    //MessageBox.Show("해당하는 이름이 데이터베이스 내에 존재하지 않습니다.");
+                    try
+                    {
+                        set_data(); //기본 데이터 셋팅
+                    }
+                    catch (Exception ex)
+                    {
+                        reader.Close(); // 셋팅 끝났으면 종료
+                        MessageBox.Show(ex.Message);
+                        count = 0;
+                    }
+                }
+                else if (e.KeyCode == Keys.Enter && count == 1)
+                {
+                    MessageBox.Show("텍스트 박스를 공백으로 해주세요");
+                    count = 0;
+                }
+                else if (e.KeyCode == Keys.Enter)
+                {
+                    MessageBox.Show("텍스트 박스를 확인해주세요");
                     count = 0;
                 }
             }
-            else if (e.KeyCode == Keys.Enter && count == 1)
+            catch
             {
-                MessageBox.Show("텍스트 박스를 공백으로 해주세요");
-                count = 0;
-            }
-            else if (e.KeyCode == Keys.Enter)
-            {
-                MessageBox.Show("텍스트 박스를 확인해주세요");
-                count = 0;
+                MessageBox.Show("텍스트 박스가 비어있습니다.");
             }
         }
         //추가버튼 클릭 시 db에 data 전송
@@ -125,13 +131,12 @@ namespace testdbwinform
                     string staffcode = dataGridView1.Rows[0].Cells[0].Value.ToString();
                     input_data();
                     parent.setGridView(staffcode, casecode);
-
                     Close();
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("배달건수가 입력되지 않았습니다.");
             }
 
         }
@@ -157,7 +162,7 @@ namespace testdbwinform
                     }
                     catch
                     {
-                        MessageBox.Show("숫자를 입력해주세요");
+                        MessageBox.Show("배달건수를 입력해주세요");
                     }
 
                 }
@@ -219,6 +224,7 @@ namespace testdbwinform
                 reader = cmd.ExecuteReader();
                 reader.Read();
                 dataGridView1.Rows.Add(reader["staffcode"], reader["name"]); //사원명이 있으면 사원명과 staff_code를 세팅 (사원명이 중복될 경우 데이터 처리도 해야됨)
+                string staff_code = reader["staffcode"].ToString();
                 reader.Close(); // 셋팅 끝났으면 종료
                 //db에 넣을 데이터
                 Random randomObj = new Random();
@@ -227,14 +233,15 @@ namespace testdbwinform
                 dataGridView1.Rows[0].Cells[4].Value = now.ToString("yyyy-MM-dd"); // 현재 날짜 셋팅 년,월,일
                 datenow = dataGridView1.Rows[0].Cells[4].Value.ToString().Trim(); // 날짜 데이터 저장 시 사용
                 dataGridView1.Rows[0].Cells[2].Value = now.Hour + ":" + now.Minute; // 현재시간 셋팅 시간+분
-
+                
                 CalcComm();
                 MessageBox.Show("사원이 인증되었습니다.");
                 count = 1;
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message);
+                reader.Close(); // 셋팅 끝났으면 종료
+                MessageBox.Show("이름을 확인해주세요");
             }
         }
         private void CalcComm()
@@ -247,7 +254,7 @@ namespace testdbwinform
                 int minute = int.Parse(hour_minute[1]);
 
                 // 00~8, 8~14, 14~00
-                if (hour == 23 && minute >= 50 || hour == 0 && 10 <= minute || hour == 7 && minute >= 50 || hour == 8 && minute <= 10 || hour == 13 && minute >= 50 || hour == 14 && 10 <= minute)
+                if (hour == 23 && minute >= 50 || hour == 0 && minute <= 10 || hour == 7 && minute >= 50 || hour == 8 && minute <= 10 || hour == 13 && minute >= 50 || hour == 14 && minute <= 10)
                 {
                     commute = 1; // 1은 tinyint의 true값
                 }
