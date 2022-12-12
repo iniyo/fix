@@ -10,6 +10,7 @@ using System.Windows.Forms; // 윈폼
 using MySql.Data.MySqlClient; // MySql 사용 시
 using System.Collections; //ArrayLIst 클래스 사용 시 
 using Google.Protobuf.WellKnownTypes;
+using System.Runtime.InteropServices;
 
 namespace testdbwinform
 {
@@ -653,18 +654,5 @@ namespace testdbwinform
             return dialogResult;
         }
 
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-            MessageBox.Show(e.ColumnIndex.ToString());
-            if (MessageBox.Show("수정 하시겠습니까?", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                dataGridView1.Rows.Remove(dataGridView1.Rows[rowselect]); // 해당되는 row 삭제
-                                                                          //dataGridView2.Rows.Remove(dataGridView1.Rows[0]);// row 하나밖에 없으므로 0번째 행 삭제
-                DeleteDB(delcode); // 삭제 진행
-                Main_ListView_items_Reader(dateTimePicker1.Value.ToString("yyyy-MM-dd")); // 삭제 후 테이블 띄우기
-                dataGridView2.Rows.Clear();
-            }
-        }
     }
 }
