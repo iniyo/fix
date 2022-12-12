@@ -226,11 +226,7 @@ namespace testdbwinform
                 reader = cmd.ExecuteReader();
                 reader.Read();
                 dataGridView1.Rows.Add(reader["staffcode"], reader["name"]); //사원명이 있으면 사원명과 staff_code를 세팅 (사원명이 중복될 경우 데이터 처리도 해야됨)
-                if (reader["accident"].ToString().Equals("1"))// 사고 전적이 있는 경우 
-                {
-                    dataGridView1.Rows[0].Cells[3].Value = "사고경력 있음.";
-                    dataGridView1.Rows[0].Cells[3].ReadOnly = true; // 사고 경력이 있는 경우 수정하지 못함.
-                }
+
                 reader.Close(); // 셋팅 끝났으면 종료
                 //db에 넣을 데이터
                 Random randomObj = new Random();
