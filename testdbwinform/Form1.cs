@@ -50,7 +50,6 @@ namespace testdbwinform
             conn.Open(); //MySql db 실행
             dataGridView1.ReadOnly = true; // 메인 datagridview읽기만 가능하도록 설정 
             cmd = new MySqlCommand("", conn); // 쿼리문은 넣지 않고 일단 실행 -> 필요한 이벤트 처리기에서 쿼리문 설정.
-            connected(); // 연결되었는지 확인
             Main_ListView_items_Reader(DateTime.Now.ToString("yyyy-MM-dd")); //화면 메인 리스트 뷰에 데이터 받아오기
             comboBox1.SelectedIndex = 0;
         }
@@ -560,18 +559,6 @@ namespace testdbwinform
             string sql = "DELETE FROM sub_table_test where staffcode = '" + code + "'"; // datagridview 값이 필요.
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             cmd.ExecuteNonQuery();
-        }
-
-        private void connected() //연결 되는지 확인
-        {
-            if (conn.State == ConnectionState.Open) // 데이터소스가 현재 연결상태인지 확인
-            {
-                label2.Text = "Connected"; // 연결 완료시
-            }
-            else
-            {
-                label2.Text = "DisConnected"; // 연결 불가시
-            }
         }
 
         // 날짜 선택 데이터
