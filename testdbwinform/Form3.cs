@@ -21,12 +21,12 @@ namespace testdbwinform
         static string server = "localhost"; // local
         static string databaes = "mydb"; // db이름
         static string port = "3308"; // port 3308 사용
-        static string user = "root"; // 사용자
-        static string password = "!roottestdatabase23"; // password
+        //static string user = "root"; // 사용자
+        //static string password = "!roottestdatabase23"; // password
         // 공통 db 설정
         //static string port = "3306";
-        //static string user = "test";
-        //static string password = "1234";
+        static string user = "test";
+        static string password = "1234";
         // conn에 들어갈 정보
         static string connectionaddress = $"Server={server};Port={port};Database={databaes};Uid={user};Pwd={password}";
         // MySql db연동을 위해 필요

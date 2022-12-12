@@ -20,13 +20,13 @@ namespace testdbwinform
         static string server = "localhost";
         static string databaes = "mydb";
         static string port = "3308";
-        static string user = "root";
-        static string password = "!roottestdatabase23";
+        //static string user = "root";
+        //static string password = "!roottestdatabase23";
         // 공통 db 설정
         //static string port = "3306";
         // 공통 db 설정
-        //static string user = "test";
-        //static string password = "1234";
+        static string user = "test";
+        static string password = "1234";
 
         static string connectionaddress = $"Server={server};Port={port};Database={databaes};Uid={user};Pwd={password}";
         // datagridview 행 생성을 위한 table 객체
@@ -158,7 +158,6 @@ namespace testdbwinform
             cmd.CommandText = selectQuery; // cmd에 쿼리 설정
             mainreader = cmd.ExecuteReader();
 
-
             // sttafcode와 일치하는 모든 데이터의 값을 더해서 보여줌
             int sum1 = 0; // 배달건수 합계
             int sum2 = 0; // 합계 도
@@ -212,62 +211,46 @@ namespace testdbwinform
         // chart 콤보박스1 변경 시 이벤트 (
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
+
             chart1.Series["Series1"].Points.Clear();
-            // staffcode 클릭 시 모든 사원들의 총수익이 보이도록
-            if ("staffcode" == comboBox4.SelectedItem.ToString())
+            // 무사고 여부 클릭시 사고 여부 보임.
+            if ("사고여부" == comboBox4.SelectedItem.ToString()) {
+                mainquery(dateTimePicker1.Value.ToString("yyyy-MM-dd"));
+                while (mainreader.Read()) 
+                {
+                    chart1.Series[0].Points.AddXY(mainreader["table2_staffcode"].ToString(), mainreader["accident_free"]);
+                }
+                mainreader.Close(); // 항상 사용 후 종료
+            } 
+            
+            else if ("배달건수" == comboBox4.SelectedItem.ToString())
             {
                 mainquery(dateTimePicker1.Value.ToString("yyyy-MM-dd"));
-                for (int i = 0; i < dataGridView1.ColumnCount; i++) //column개수 만큼 동작
+                while (mainreader.Read()) 
                 {
-                    while (mainreader.Read()) // 데이터 읽어와서 chart에 부착
-                    {
-                        if (dataGridView1.Rows[i].Cells[1].Value.ToString() == mainreader["table2_staffcode"].ToString())
-                        {
-                            chart1.Series["Series1"].Points.AddXY(mainreader["table2_staffcode"], mainreader["revenue"]); //staffcode를 x에, 수익을 y에
-                        }
-                    }
+                    chart1.Series[0].Points.AddXY(mainreader["table2_staffcode"].ToString(), mainreader["case_number"]);
                 }
                 mainreader.Close(); // 항상 사용 후 종료
             }
-            else if ("무사고여부" == comboBox4.SelectedItem.ToString())
-            {
-
-            }
-            else if ("배달건수" == comboBox4.SelectedItem.ToString())
-            {
-
-            }
+           
             else if ("출/퇴근" == comboBox4.SelectedItem.ToString())
             {
-
+                mainquery(dateTimePicker1.Value.ToString("yyyy-MM-dd"));
+                while (mainreader.Read()) 
+                {
+                    chart1.Series[0].Points.AddXY(mainreader["table2_staffcode"].ToString(), mainreader["commute"]); 
+                }
+                mainreader.Close(); // 항상 사용 후 종료
             }
-            else if ("수익률" == comboBox4.SelectedItem.ToString())
+            
+            else if ("총수익" == comboBox4.SelectedItem.ToString())
             {
-
-            }
-        }
-        // chart 콤보박스2 변경 시 이벤트 (chart 모양 조절)
-        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if ("Line" == comboBox5.SelectedItem.ToString())
-            {
-                chart1.Series["Series1"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            }
-            else if ("Column" == comboBox5.SelectedItem.ToString())
-            {
-                chart1.Series["Series1"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
-            }
-            else if ("Point" == comboBox5.SelectedItem.ToString())
-            {
-                chart1.Series["Series1"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            }
-            else if ("Pie" == comboBox5.SelectedItem.ToString())
-            {
-                chart1.Series["Series1"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            }
-            else if ("Doughnut" == comboBox5.SelectedItem.ToString())
-            {
-                chart1.Series["Series1"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+                mainquery(dateTimePicker1.Value.ToString("yyyy-MM-dd"));
+                while (mainreader.Read())
+                {
+                    chart1.Series[0].Points.AddXY(mainreader["table2_staffcode"].ToString(), mainreader["revenue"]); 
+                }
+                mainreader.Close(); // 항상 사용 후 종료
             }
         }
         //
@@ -529,7 +512,7 @@ namespace testdbwinform
                 SearchData(selectdata, data);
             }
             // 수익
-            else if (selectdata.Equals("수익(이상)"))
+            else if (selectdata.Equals("수익"))
             {
                 selectdata = "revenue";
                 SearchData(selectdata, data);
