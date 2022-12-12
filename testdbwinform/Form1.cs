@@ -432,7 +432,9 @@ namespace testdbwinform
 
             while (mainreader.Read())
             {
-                dataGridView1.Rows.Add(mainreader["casecode"], mainreader["table2_staffcode"], "", mainreader["accident_free"], mainreader["case_number"], mainreader["date"], mainreader["commute"], mainreader["revenue"]);
+                string[] date = new string[dataGridView1.RowCount];
+                date = mainreader["date"].ToString().Split(' ');
+                dataGridView1.Rows.Add(mainreader["casecode"], mainreader["table2_staffcode"], "", mainreader["accident_free"], mainreader["case_number"], date[0], mainreader["commute"], mainreader["revenue"]);
             }
             mainreader.Close();
             for (int i = 0; i < dataGridView1.RowCount; i++) //Row개수 만큼 동작
@@ -528,12 +530,11 @@ namespace testdbwinform
                 SearchData(selectdata, data);
             }
             // 수익
-            else if (selectdata.Equals("수익(이상)"))
+            else if (selectdata.Equals("수익"))
             {
                 selectdata = "revenue";
                 SearchData(selectdata, data);
             }
-
         }
 
         //UPDATE처리
